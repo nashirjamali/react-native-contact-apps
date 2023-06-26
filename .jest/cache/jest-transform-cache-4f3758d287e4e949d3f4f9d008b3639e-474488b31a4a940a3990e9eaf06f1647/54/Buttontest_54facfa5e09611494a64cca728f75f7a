@@ -1,0 +1,29 @@
+e24f2d4eaef04f373f8e29b4240815ae
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importDefault(require("react"));
+const react_native_1 = require("@testing-library/react-native");
+const Button_1 = __importDefault(require("../Button"));
+describe('Button', () => {
+    test('renders correctly', () => {
+        const { getByTestId } = (0, react_native_1.render)(<Button_1.default />);
+        const button = getByTestId('button');
+        expect(button).toBeTruthy();
+    });
+    test('executes onPress callback when pressed', () => {
+        const onPressMock = jest.fn();
+        const { getByTestId } = (0, react_native_1.render)(<Button_1.default onPress={onPressMock}/>);
+        const button = getByTestId('button');
+        react_native_1.fireEvent.press(button);
+        expect(onPressMock).toHaveBeenCalledTimes(1);
+    });
+    test('applies disabled style when disabled prop is true', () => {
+        const { getByTestId } = (0, react_native_1.render)(<Button_1.default disabled/>);
+        const button = getByTestId('button');
+        expect(button.props.style[1]).toEqual({ backgroundColor: '#3f3f46' });
+    });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiRDpcXHJpc2V0XFxSZWFjdE5hdGl2ZVxcQ29udGFjdEFwcHNcXHNyY1xcY29tcG9uZW50c1xcX190ZXN0X19cXEJ1dHRvbi50ZXN0LnRzeCIsIm1hcHBpbmdzIjoiOzs7OztBQUFBLGtEQUEwQjtBQUMxQixnRUFBZ0U7QUFDaEUsdURBQStCO0FBRS9CLFFBQVEsQ0FBQyxRQUFRLEVBQUUsR0FBRyxFQUFFO0lBQ3RCLElBQUksQ0FBQyxtQkFBbUIsRUFBRSxHQUFHLEVBQUU7UUFDN0IsTUFBTSxFQUFDLFdBQVcsRUFBQyxHQUFHLElBQUEscUJBQU0sRUFBQyxDQUFDLGdCQUFNLENBQUMsQUFBRCxFQUFHLENBQUMsQ0FBQztRQUN6QyxNQUFNLE1BQU0sR0FBRyxXQUFXLENBQUMsUUFBUSxDQUFDLENBQUM7UUFDckMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDLFVBQVUsRUFBRSxDQUFDO0lBQzlCLENBQUMsQ0FBQyxDQUFDO0lBRUgsSUFBSSxDQUFDLHdDQUF3QyxFQUFFLEdBQUcsRUFBRTtRQUNsRCxNQUFNLFdBQVcsR0FBRyxJQUFJLENBQUMsRUFBRSxFQUFFLENBQUM7UUFDOUIsTUFBTSxFQUFDLFdBQVcsRUFBQyxHQUFHLElBQUEscUJBQU0sRUFBQyxDQUFDLGdCQUFNLENBQUMsT0FBTyxDQUFDLENBQUMsV0FBVyxDQUFDLEVBQUcsQ0FBQyxDQUFDO1FBQy9ELE1BQU0sTUFBTSxHQUFHLFdBQVcsQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUNyQyx3QkFBUyxDQUFDLEtBQUssQ0FBQyxNQUFNLENBQUMsQ0FBQztRQUN4QixNQUFNLENBQUMsV0FBVyxDQUFDLENBQUMscUJBQXFCLENBQUMsQ0FBQyxDQUFDLENBQUM7SUFDL0MsQ0FBQyxDQUFDLENBQUM7SUFFSCxJQUFJLENBQUMsbURBQW1ELEVBQUUsR0FBRyxFQUFFO1FBQzdELE1BQU0sRUFBQyxXQUFXLEVBQUMsR0FBRyxJQUFBLHFCQUFNLEVBQUMsQ0FBQyxnQkFBTSxDQUFDLFFBQVEsRUFBRyxDQUFDLENBQUM7UUFDbEQsTUFBTSxNQUFNLEdBQUcsV0FBVyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBQ3JDLE1BQU0sQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxFQUFDLGVBQWUsRUFBRSxTQUFTLEVBQUMsQ0FBQyxDQUFDO0lBQ3RFLENBQUMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyxDQUFDLENBQUMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiRDpcXHJpc2V0XFxSZWFjdE5hdGl2ZVxcQ29udGFjdEFwcHNcXHNyY1xcY29tcG9uZW50c1xcX190ZXN0X19cXEJ1dHRvbi50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHtyZW5kZXIsIGZpcmVFdmVudH0gZnJvbSAnQHRlc3RpbmctbGlicmFyeS9yZWFjdC1uYXRpdmUnO1xuaW1wb3J0IEJ1dHRvbiBmcm9tICcuLi9CdXR0b24nO1xuXG5kZXNjcmliZSgnQnV0dG9uJywgKCkgPT4ge1xuICB0ZXN0KCdyZW5kZXJzIGNvcnJlY3RseScsICgpID0+IHtcbiAgICBjb25zdCB7Z2V0QnlUZXN0SWR9ID0gcmVuZGVyKDxCdXR0b24gLz4pO1xuICAgIGNvbnN0IGJ1dHRvbiA9IGdldEJ5VGVzdElkKCdidXR0b24nKTtcbiAgICBleHBlY3QoYnV0dG9uKS50b0JlVHJ1dGh5KCk7XG4gIH0pO1xuXG4gIHRlc3QoJ2V4ZWN1dGVzIG9uUHJlc3MgY2FsbGJhY2sgd2hlbiBwcmVzc2VkJywgKCkgPT4ge1xuICAgIGNvbnN0IG9uUHJlc3NNb2NrID0gamVzdC5mbigpO1xuICAgIGNvbnN0IHtnZXRCeVRlc3RJZH0gPSByZW5kZXIoPEJ1dHRvbiBvblByZXNzPXtvblByZXNzTW9ja30gLz4pO1xuICAgIGNvbnN0IGJ1dHRvbiA9IGdldEJ5VGVzdElkKCdidXR0b24nKTtcbiAgICBmaXJlRXZlbnQucHJlc3MoYnV0dG9uKTtcbiAgICBleHBlY3Qob25QcmVzc01vY2spLnRvSGF2ZUJlZW5DYWxsZWRUaW1lcygxKTtcbiAgfSk7XG5cbiAgdGVzdCgnYXBwbGllcyBkaXNhYmxlZCBzdHlsZSB3aGVuIGRpc2FibGVkIHByb3AgaXMgdHJ1ZScsICgpID0+IHtcbiAgICBjb25zdCB7Z2V0QnlUZXN0SWR9ID0gcmVuZGVyKDxCdXR0b24gZGlzYWJsZWQgLz4pO1xuICAgIGNvbnN0IGJ1dHRvbiA9IGdldEJ5VGVzdElkKCdidXR0b24nKTtcbiAgICBleHBlY3QoYnV0dG9uLnByb3BzLnN0eWxlWzFdKS50b0VxdWFsKHtiYWNrZ3JvdW5kQ29sb3I6ICcjM2YzZjQ2J30pO1xuICB9KTtcbn0pO1xuIl0sInZlcnNpb24iOjN9
