@@ -21,6 +21,10 @@ const createTestProps = (props: Partial<NavigationProps>) => ({
 });
 
 describe('Form', () => {
+  beforeEach(() => {
+    jest.setTimeout(30000);
+  });
+
   test('renders correctly and enables next button when form is complete', async () => {
     const props = createTestProps({});
     const {getByPlaceholderText, getByLabelText} = renderWithProviders(

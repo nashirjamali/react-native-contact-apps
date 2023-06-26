@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, ScrollView, View, StyleSheet} from 'react-native';
+import {Alert, View, StyleSheet, SectionList} from 'react-native';
 import {Contact, RootStackParamList} from '../types';
 import {getContacts} from '../apis/contact';
 import Typography from '../components/Typography';
@@ -21,10 +21,37 @@ export default function List({navigation}: Props) {
     const {data, status} = await getContacts();
 
     if (status === 200) {
-      setContacts(data.data);
+      setContacts(
+        data.data.sort((a, b) => a.firstName.localeCompare(b.firstName)),
+      );
     } else {
       Alert.alert('Error', 'something went wrong');
     }
+  }
+
+  function groupingData() {
+    const groupData: {title: string; data: Contact[]}[] = [];
+
+    contacts.forEach(contact => {
+      const alphabet = contact.firstName[0].toUpperCase();
+      const existingIndex = groupData.findIndex(
+        item => item.title === alphabet,
+      );
+
+      if (existingIndex >= 0) {
+        groupData[existingIndex] = {
+          ...groupData[existingIndex],
+          data: [...groupData[existingIndex].data, contact],
+        };
+      } else {
+        groupData.push({
+          title: alphabet,
+          data: [contact],
+        });
+      }
+    });
+
+    return groupData;
   }
 
   useEffect(() => {
@@ -39,21 +66,27 @@ export default function List({navigation}: Props) {
           <Plus color="#fafafa" size={20} />
         </Button>
       </View>
-      <ScrollView style={styles.list}>
-        {contacts.map(contact => {
-          return (
-            <ContactItem
-              contact={contact}
-              key={contact.id}
-              onPress={() =>
-                navigation.navigate('Detail', {
-                  id: contact.id,
-                })
-              }
-            />
-          );
-        })}
-      </ScrollView>
+      <SectionList
+        style={styles.list}
+        sections={groupingData()}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <ContactItem
+            contact={item}
+            key={item.id}
+            onPress={() =>
+              navigation.navigate('Detail', {
+                id: item.id,
+              })
+            }
+          />
+        )}
+        renderSectionHeader={({section: {title}}) => (
+          <View style={styles.sectionHeader}>
+            <Typography variant="subHeading"> {title}</Typography>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 }
@@ -74,5 +107,9 @@ const styles = StyleSheet.create({
   list: {
     paddingTop: 20,
     flex: 1,
+  },
+  sectionHeader: {
+    paddingHorizontal: 20,
+    paddingBottom: 10,
   },
 });

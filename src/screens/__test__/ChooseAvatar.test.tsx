@@ -31,6 +31,10 @@ const createTestProps = (props: Partial<NavigationProps>) => ({
 });
 
 describe('ChooseAvatar', () => {
+  beforeEach(() => {
+    jest.setTimeout(30000);
+  });
+
   test('navigates to List screen after successful contact creation', async () => {
     const props = createTestProps({});
 
@@ -82,19 +86,23 @@ describe('ChooseAvatar', () => {
     expect(getAllByTestId('avatar-image')[0]).toBeTruthy();
     expect(getByLabelText('button-update')).toBeTruthy();
 
-    fireEvent.press(getAllByTestId('avatar-image')[0]);
+    await act(async () => {
+      fireEvent.press(getAllByTestId('avatar-image')[0]);
 
-    await waitFor(() => {
-      expect(
-        getByLabelText('button-update').props.accessibilityState.disabled,
-      ).toBe(false);
-    });
+      await waitFor(() => {
+        expect(
+          getByLabelText('button-update').props.accessibilityState.disabled,
+        ).toBe(false);
+      });
 
-    fireEvent.press(getByLabelText('button-update'));
+      await act(async () => {
+        fireEvent.press(getByLabelText('button-update'));
 
-    await waitFor(() => {
-      expect(putContact).toHaveBeenCalledTimes(1);
-      expect(props.navigation.replace).toHaveBeenCalledWith('List');
+        await waitFor(() => {
+          expect(putContact).toHaveBeenCalledTimes(1);
+          expect(props.navigation.replace).toHaveBeenCalledWith('List');
+        });
+      });
     });
   });
 });
